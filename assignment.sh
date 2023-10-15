@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
     subconfig.vm.box = "$MASTER_BOX"
     subconfig.vm.hostname = "master"
     subconfig.vm.network "private_network", type: "static", ip: "192.168.56.10"
-    subconfig.vm.provision "shell", inline: "sudo useradd -m -s /bin/bash altschool"
+    subconfig.vm.provision "shell", path: "master.sh"
   end
 
   config.vm.define "slave" do |subconfig|
@@ -43,9 +43,6 @@ create_vagrant_environment
 
 vagrant ssh master
 
-ssh-keygen -t rsa
-
-ssh-copy-id vagrant@192.168.56.11
 
 # Output instructions to SSH into the 'Slave' node
 echo "You can SSH into the 'Slave' node using 'vagrant ssh slave' after provisioning."
